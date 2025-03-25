@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Games</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.google.com https://*.googleapis.com https://*.googlesyndication.com https://*.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googlesyndication.com https://*.google-analytics.com https://*.googletagmanager.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline' https://*.googleapis.com; img-src 'self' data: https://*.google.com https://*.googleusercontent.com https://*.gstatic.com https://*.googlesyndication.com; frame-src 'self' https://*.google.com https://*.googlesyndication.com https://www.mygames.xyz;">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { text-align: center; background: linear-gradient(135deg, #1e3c72, #2a5298); display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; padding: 20px; position: relative; color: white; }
+h1 { font-size: 32px; font-weight: bold; margin-bottom: 20px; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); }
+.logo-container { position: absolute; top: 10px; left: 20px; }
+.flag-container { position: absolute; top: 10px; right: 20px; }
+.logo, .flag { width: 120px; height: auto; }
+.flag { width: 40px; filter: brightness(0) invert(1); }
+.play-button { padding: 12px 25px; font-size: 20px; background: #FF9800; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); }
+.play-button:hover { background: #e68900; transform: scale(1.05); }
+.ads-container { display: none; margin-top: 20px; background: rgba(0, 0, 0, 0.5); padding: 15px; border-radius: 10px; }
+.countdown { font-size: 20px; font-weight: bold; }
+.game-container { width: 90%; max-width: 900px; height: 500px; margin-top: 20px; display: none; }
+iframe { width: 100%; height: 100%; border: none; }
+.loader { display: none; margin-top: 20px; border: 5px solid #f3f3f3; border-top: 5px solid #FF9800; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+footer { margin-top: 40px; font-size: 14px; opacity: 0.8; }
+</style>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" onerror="console.error('AdSense script failed to load.')"></script>
+</head>
+<body>
+
+<div class="logo-container">
+<img src="mygames_logo.png" alt="MyGames Logo" class="logo" onerror="this.src='default_logo.png'; console.error('Logo image failed to load.')">
+</div>
+
+<div class="flag-container">
+<img src="indian_flag.png" alt="Indian Flag" class="flag" onerror="this.src='default_flag.png'; console.error('Flag image failed to load.')">
+</div>
+
+<h1 class="game-title">WELCOME TO GAME PLAY</h1>
+<button class="play-button" onclick="playGame()">PLAY NOW</button>
+
+<div id="adsContainer" class="ads-container">
+<p class="countdown">Ad is running... Please wait <span id="timer">5</span> sec</p>
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+data-ad-slot="XXXXXXXXXX"
+data-ad-format="auto"></ins>
+<script>
+try {
+(adsbygoogle = window.adsbygoogle || []).push({});
+} catch (error) {
+console.error("AdSense error: ", error);
+}
+</script>
+</div>
+
+<div class="loader" id="gameLoader"></div>
+
+<div class="game-container" id="gameContainer">
+<iframe id="gameFrame" src="about:blank"></iframe>
+</div>
+
+<footer>
+<p>Developed by Indranil Ruidas</p>
+</footer>
+
+<script>
+function playGame() {
+try {
+// Get Game Name from URL Parameter
+const urlParams = new URLSearchParams(window.location.search);
+let gameName = urlParams.get("game") || "default_game"; // Default game if not provided
+
+document.querySelector(".play-button").style.display = "none";
+document.getElementById("adsContainer").style.display = "block";
+
+let countdown = 5;
+let timerInterval = setInterval(function() {
+countdown--;
+document.getElementById("timer").innerText = countdown;
+
+if (countdown === 0) {
+clearInterval(timerInterval);
+document.getElementById("adsContainer").style.display = "none";
+document.getElementById("gameLoader").style.display = "block";
+
+setTimeout(() => {
+document.getElementById("gameLoader").style.display = "none";
+document.getElementById("gameContainer").style.display = "block";
+
+// Dynamically Load the Game
+document.getElementById("gameFrame").src = `https://www.mygames.xyz/games/${gameName}/index.html`;
+}, 2000);
+}
+}, 1000);
+} catch (error) {
+console.error("Error in playGame():", error);
+}
+}
+</script>
+
+</body>
+</html>
