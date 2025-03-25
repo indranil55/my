@@ -1,0 +1,28 @@
+/* Reset & Fullscreen Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: black; /* Optional: Black background */
+}
+
+.game-fullscreen {
+    width: 100%;
+    height: 100vh; /* Fullscreen Height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-fullscreen iframe {
+    width: 100vw; /* Full width */
+    height: 100vh; /* Full height */
+    border: none;
+    display: block;
+}
